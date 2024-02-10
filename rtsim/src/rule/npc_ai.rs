@@ -288,6 +288,7 @@ impl Rule for NpcAi {
                         // Reset look_dir
                         controller.look_dir = None;
 
+
                         brain.action.tick(&mut NpcCtx {
                             state: ctx.state,
                             world: ctx.world,
