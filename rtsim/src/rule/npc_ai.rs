@@ -367,6 +367,7 @@ impl Rule for NpcAi {
                             body_type,
                             personality,
                         );
+
                         // =============================================
 
                         brain.action.tick(&mut NpcCtx {
