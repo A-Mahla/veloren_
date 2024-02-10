@@ -43,34 +43,27 @@ use world::{
     IndexRef, World,
 };
 
-// ============================  Integration code code ===============================
+// ============================  Integration code ===============================
 
 use common::{
     rtsim::{PersonalityTrait, Personality},
     comp::body::{Body}
 };
+use regex::Regex;
 
-fn which_body(body: &Body) -> &Body {
-    body
+fn which_body_info(body: &Body) -> (String, String) {
+    let text = format!("{:?}", body);
+    let re = Regex::new(r"\w+\(Body \{ species: (\w+), body_type: (\w+)[, ]").unwrap();
+
+    if let Some(caps) = re.captures(&text) {
+        let _species = (caps.get(1).map_or("None", |m| m.as_str())).to_string();
+        let _body_type = (caps.get(2).map_or("None", |m| m.as_str())).to_string();
+        return (_species, _body_type);
+    }
+    ("None".to_string(), "None".to_string())
 }
 
 fn which_personality(personality: &Personality) -> &'static str {
-    // Open,
-    // Adventurous,
-    // Closed,
-    // Conscientious,
-    // Busybody,
-    // Unconscientious,
-    // Extroverted,
-    // Introverted,
-    // Agreeable,
-    // Sociable,
-    // Disagreeable,
-    // Neurotic,
-    // Seeker,
-    // Worried,
-    // SadLoner,
-    // Stable,
     if personality.is(PersonalityTrait::Open) {
         "Open"
     } else if personality.is(PersonalityTrait::Adventurous) {
@@ -356,13 +349,23 @@ impl Rule for NpcAi {
                         controller.look_dir = None;
 
                         // =============== Amahla Code =================
+                        let name = npc.get_name();
+                        let (species, body_type) = which_body_info(&npc.body);
+                        let personality = which_personality(&npc.personality);
+
                         println!(
                             "{{\
-                            \n  Npc's info:  {:?}\
+                            \n  Name:        {:}\
+                            \n  Body:        {:}\
+                            \n  Species:     {:}\
+                            \n  Gender:      {:}\
                             \n  Personality: {}\
                             \n}}\n",
-                            which_body(&npc.body),
-                            which_personality(&npc.personality)
+                            name,
+                            npc.body,
+                            species,
+                            body_type,
+                            personality,
                         );
                         // =============================================
 
