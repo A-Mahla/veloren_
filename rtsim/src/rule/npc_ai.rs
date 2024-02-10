@@ -43,6 +43,68 @@ use world::{
     IndexRef, World,
 };
 
+// ============================  Integration code code ===============================
+
+use common::{
+    rtsim::{PersonalityTrait, Personality},
+};
+
+fn which_personality(personality: Personality) {
+    // Open,
+    // Adventurous,
+    // Closed,
+    // Conscientious,
+    // Busybody,
+    // Unconscientious,
+    // Extroverted,
+    // Introverted,
+    // Agreeable,
+    // Sociable,
+    // Disagreeable,
+    // Neurotic,
+    // Seeker,
+    // Worried,
+    // SadLoner,
+    // Stable,
+    if personality.is(PersonalityTrait::Open) {
+        println!("Personality: Open");
+    } else if personality.is(PersonalityTrait::Adventurous) {
+        println!("Personality: Adventurous");
+    } else if personality.is(PersonalityTrait::Closed) {
+        println!("Personality: Closed");
+    } else if personality.is(PersonalityTrait::Conscientious) {
+        println!("Personality: Conscientious");
+    } else if personality.is(PersonalityTrait::Busybody) {
+        println!("Personality: Busybody");
+    } else if personality.is(PersonalityTrait::Unconscientious) {
+        println!("Personality: Unconscientious");
+    } else if personality.is(PersonalityTrait::Extroverted) {
+        println!("Personality: Extroverted");
+    } else if personality.is(PersonalityTrait::Introverted) {
+        println!("Personality: Introverted");
+    } else if personality.is(PersonalityTrait::Agreeable) {
+        println!("Personality: Agreeable");
+    } else if personality.is(PersonalityTrait::Sociable) {
+        println!("Personality: Sociable");
+    } else if personality.is(PersonalityTrait::Disagreeable) {
+        println!("Personality: Disagreeable");
+    } else if personality.is(PersonalityTrait::Neurotic) {
+        println!("Personality: Neurotic");
+    } else if personality.is(PersonalityTrait::Seeker) {
+        println!("Personality: Seeker");
+    } else if personality.is(PersonalityTrait::Worried) {
+        println!("Personality: Worried");
+    } else if personality.is(PersonalityTrait::SadLoner) {
+        println!("Personality: SadLoner");
+    } else if personality.is(PersonalityTrait::Stable) {
+        println!("Personality: Stable");
+    } else {
+        println!("Personality: Unknown");
+    };
+}
+
+// ===================================================================================
+
 /// How many ticks should pass between running NPC AI.
 /// Note that this only applies to simulated NPCs: loaded NPCs have their AI
 /// code run every tick. This means that AI code should be broadly
@@ -288,6 +350,9 @@ impl Rule for NpcAi {
                         // Reset look_dir
                         controller.look_dir = None;
 
+                        // =============== Amahla Code =================
+                        which_personality(npc.personality);
+                        // =============================================
 
                         brain.action.tick(&mut NpcCtx {
                             state: ctx.state,
