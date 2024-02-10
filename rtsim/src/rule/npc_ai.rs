@@ -47,9 +47,14 @@ use world::{
 
 use common::{
     rtsim::{PersonalityTrait, Personality},
+    comp::body::{Body}
 };
 
-fn which_personality(personality: Personality) {
+fn which_body(body: Body) -> String {
+    format!("    Body: {}", body)
+}
+
+fn which_personality(personality: Personality) -> &'static str {
     // Open,
     // Adventurous,
     // Closed,
@@ -67,40 +72,40 @@ fn which_personality(personality: Personality) {
     // SadLoner,
     // Stable,
     if personality.is(PersonalityTrait::Open) {
-        println!("Personality: Open");
+        "    Personality: Open"
     } else if personality.is(PersonalityTrait::Adventurous) {
-        println!("Personality: Adventurous");
+        "    Personality: Adventurous"
     } else if personality.is(PersonalityTrait::Closed) {
-        println!("Personality: Closed");
+        "    Personality: Closed"
     } else if personality.is(PersonalityTrait::Conscientious) {
-        println!("Personality: Conscientious");
+        "    Personality: Conscientious"
     } else if personality.is(PersonalityTrait::Busybody) {
-        println!("Personality: Busybody");
+        "    Personality: Busybody"
     } else if personality.is(PersonalityTrait::Unconscientious) {
-        println!("Personality: Unconscientious");
+        "    Personality: Unconscientious"
     } else if personality.is(PersonalityTrait::Extroverted) {
-        println!("Personality: Extroverted");
+        "    Personality: Extroverted"
     } else if personality.is(PersonalityTrait::Introverted) {
-        println!("Personality: Introverted");
+        "    Personality: Introverted"
     } else if personality.is(PersonalityTrait::Agreeable) {
-        println!("Personality: Agreeable");
+        "    Personality: Agreeable"
     } else if personality.is(PersonalityTrait::Sociable) {
-        println!("Personality: Sociable");
+        "    Personality: Sociable"
     } else if personality.is(PersonalityTrait::Disagreeable) {
-        println!("Personality: Disagreeable");
+        "    Personality: Disagreeable"
     } else if personality.is(PersonalityTrait::Neurotic) {
-        println!("Personality: Neurotic");
+        "    Personality: Neurotic"
     } else if personality.is(PersonalityTrait::Seeker) {
-        println!("Personality: Seeker");
+        "    Personality: Seeker"
     } else if personality.is(PersonalityTrait::Worried) {
-        println!("Personality: Worried");
+        "    Personality: Worried"
     } else if personality.is(PersonalityTrait::SadLoner) {
-        println!("Personality: SadLoner");
+        "    Personality: SadLoner"
     } else if personality.is(PersonalityTrait::Stable) {
-        println!("Personality: Stable");
+        "    Personality: Stable"
     } else {
-        println!("Personality: Unknown");
-    };
+        "    Personality: Unknown"
+    }
 }
 
 // ===================================================================================
@@ -351,7 +356,10 @@ impl Rule for NpcAi {
                         controller.look_dir = None;
 
                         // =============== Amahla Code =================
-                        which_personality(npc.personality);
+                        println!("{{\n{}\n{}\n}}\n",
+                            which_body(npc.body),
+                            which_personality(npc.personality)
+                        );
                         // =============================================
 
                         brain.action.tick(&mut NpcCtx {
