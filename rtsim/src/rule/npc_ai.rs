@@ -43,66 +43,6 @@ use world::{
     IndexRef, World,
 };
 
-// ============================  Integration code ===============================
-
-use common::{
-    rtsim::{PersonalityTrait, Personality},
-    comp::body::{Body}
-};
-use regex::Regex;
-
-fn which_body_info(body: &Body) -> (String, String) {
-    let text = format!("{:?}", body);
-    let re = Regex::new(r"\w+\(Body \{ species: (\w+), body_type: (\w+)[, ]").unwrap();
-
-    if let Some(caps) = re.captures(&text) {
-        let _species = (caps.get(1).map_or("None", |m| m.as_str())).to_string();
-        let _body_type = (caps.get(2).map_or("None", |m| m.as_str())).to_string();
-        return (_species, _body_type);
-    }
-    ("None".to_string(), "None".to_string())
-}
-
-fn which_personality(personality: &Personality) -> &'static str {
-    if personality.is(PersonalityTrait::Open) {
-        "Open"
-    } else if personality.is(PersonalityTrait::Adventurous) {
-        "Adventurous"
-    } else if personality.is(PersonalityTrait::Closed) {
-        "Closed"
-    } else if personality.is(PersonalityTrait::Conscientious) {
-        "Conscientious"
-    } else if personality.is(PersonalityTrait::Busybody) {
-        "Busybody"
-    } else if personality.is(PersonalityTrait::Unconscientious) {
-        "Unconscientious"
-    } else if personality.is(PersonalityTrait::Extroverted) {
-        "Extroverted"
-    } else if personality.is(PersonalityTrait::Introverted) {
-        "Introverted"
-    } else if personality.is(PersonalityTrait::Agreeable) {
-        "Agreeable"
-    } else if personality.is(PersonalityTrait::Sociable) {
-        "Sociable"
-    } else if personality.is(PersonalityTrait::Disagreeable) {
-        "Disagreeable"
-    } else if personality.is(PersonalityTrait::Neurotic) {
-        "Neurotic"
-    } else if personality.is(PersonalityTrait::Seeker) {
-        "Seeker"
-    } else if personality.is(PersonalityTrait::Worried) {
-        "Worried"
-    } else if personality.is(PersonalityTrait::SadLoner) {
-        "SadLoner"
-    } else if personality.is(PersonalityTrait::Stable) {
-        "Stable"
-    } else {
-        "Unknown"
-    }
-}
-
-// ===================================================================================
-
 /// How many ticks should pass between running NPC AI.
 /// Note that this only applies to simulated NPCs: loaded NPCs have their AI
 /// code run every tick. This means that AI code should be broadly
@@ -292,6 +232,66 @@ fn path_towns(
         PathResult::Pending | PathResult::None(_) => None,
     }
 }
+
+// ============================  Integration code ===============================
+
+use common::{
+    rtsim::{PersonalityTrait, Personality},
+    comp::body::{Body}
+};
+use regex::Regex;
+
+fn which_body_info(body: &Body) -> (String, String) {
+    let text = format!("{:?}", body);
+    let re = Regex::new(r"\w+\(Body \{ species: (\w+), body_type: (\w+)[, ]").unwrap();
+
+    if let Some(caps) = re.captures(&text) {
+        let _species = (caps.get(1).map_or("None", |m| m.as_str())).to_string();
+        let _body_type = (caps.get(2).map_or("None", |m| m.as_str())).to_string();
+        return (_species, _body_type);
+    }
+    ("None".to_string(), "None".to_string())
+}
+
+fn which_personality(personality: &Personality) -> &'static str {
+    if personality.is(PersonalityTrait::Open) {
+        "Open"
+    } else if personality.is(PersonalityTrait::Adventurous) {
+        "Adventurous"
+    } else if personality.is(PersonalityTrait::Closed) {
+        "Closed"
+    } else if personality.is(PersonalityTrait::Conscientious) {
+        "Conscientious"
+    } else if personality.is(PersonalityTrait::Busybody) {
+        "Busybody"
+    } else if personality.is(PersonalityTrait::Unconscientious) {
+        "Unconscientious"
+    } else if personality.is(PersonalityTrait::Extroverted) {
+        "Extroverted"
+    } else if personality.is(PersonalityTrait::Introverted) {
+        "Introverted"
+    } else if personality.is(PersonalityTrait::Agreeable) {
+        "Agreeable"
+    } else if personality.is(PersonalityTrait::Sociable) {
+        "Sociable"
+    } else if personality.is(PersonalityTrait::Disagreeable) {
+        "Disagreeable"
+    } else if personality.is(PersonalityTrait::Neurotic) {
+        "Neurotic"
+    } else if personality.is(PersonalityTrait::Seeker) {
+        "Seeker"
+    } else if personality.is(PersonalityTrait::Worried) {
+        "Worried"
+    } else if personality.is(PersonalityTrait::SadLoner) {
+        "SadLoner"
+    } else if personality.is(PersonalityTrait::Stable) {
+        "Stable"
+    } else {
+        "Unknown"
+    }
+}
+
+// ===================================================================================
 
 impl Rule for NpcAi {
     fn start(rtstate: &mut RtState) -> Result<Self, RuleError> {
