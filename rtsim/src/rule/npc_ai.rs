@@ -50,11 +50,11 @@ use common::{
     comp::body::{Body}
 };
 
-fn which_body(body: Body) -> String {
-    format!("    Body: {}", body)
+fn which_body(body: &Body) -> &Body {
+    body
 }
 
-fn which_personality(personality: Personality) -> &'static str {
+fn which_personality(personality: &Personality) -> &'static str {
     // Open,
     // Adventurous,
     // Closed,
@@ -72,39 +72,39 @@ fn which_personality(personality: Personality) -> &'static str {
     // SadLoner,
     // Stable,
     if personality.is(PersonalityTrait::Open) {
-        "    Personality: Open"
+        "Open"
     } else if personality.is(PersonalityTrait::Adventurous) {
-        "    Personality: Adventurous"
+        "Adventurous"
     } else if personality.is(PersonalityTrait::Closed) {
-        "    Personality: Closed"
+        "Closed"
     } else if personality.is(PersonalityTrait::Conscientious) {
-        "    Personality: Conscientious"
+        "Conscientious"
     } else if personality.is(PersonalityTrait::Busybody) {
-        "    Personality: Busybody"
+        "Busybody"
     } else if personality.is(PersonalityTrait::Unconscientious) {
-        "    Personality: Unconscientious"
+        "Unconscientious"
     } else if personality.is(PersonalityTrait::Extroverted) {
-        "    Personality: Extroverted"
+        "Extroverted"
     } else if personality.is(PersonalityTrait::Introverted) {
-        "    Personality: Introverted"
+        "Introverted"
     } else if personality.is(PersonalityTrait::Agreeable) {
-        "    Personality: Agreeable"
+        "Agreeable"
     } else if personality.is(PersonalityTrait::Sociable) {
-        "    Personality: Sociable"
+        "Sociable"
     } else if personality.is(PersonalityTrait::Disagreeable) {
-        "    Personality: Disagreeable"
+        "Disagreeable"
     } else if personality.is(PersonalityTrait::Neurotic) {
-        "    Personality: Neurotic"
+        "Neurotic"
     } else if personality.is(PersonalityTrait::Seeker) {
-        "    Personality: Seeker"
+        "Seeker"
     } else if personality.is(PersonalityTrait::Worried) {
-        "    Personality: Worried"
+        "Worried"
     } else if personality.is(PersonalityTrait::SadLoner) {
-        "    Personality: SadLoner"
+        "SadLoner"
     } else if personality.is(PersonalityTrait::Stable) {
-        "    Personality: Stable"
+        "Stable"
     } else {
-        "    Personality: Unknown"
+        "Unknown"
     }
 }
 
@@ -356,9 +356,13 @@ impl Rule for NpcAi {
                         controller.look_dir = None;
 
                         // =============== Amahla Code =================
-                        println!("{{\n{}\n{}\n}}\n",
-                            which_body(npc.body),
-                            which_personality(npc.personality)
+                        println!(
+                            "{{\
+                            \n  Body:        {}\
+                            \n  Personality: {}\
+                            \n}}\n",
+                            which_body(&npc.body),
+                            which_personality(&npc.personality)
                         );
                         // =============================================
 
