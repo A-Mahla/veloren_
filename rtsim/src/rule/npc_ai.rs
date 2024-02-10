@@ -355,10 +355,10 @@ impl Rule for NpcAi {
 
                         println!(
                             "{{\
-                            \n  Name:        {:}\
-                            \n  Body:        {:}\
-                            \n  Species:     {:}\
-                            \n  Gender:      {:}\
+                            \n  Name:        {}\
+                            \n  Body:        {}\
+                            \n  Species:     {}\
+                            \n  Gender:      {}\
                             \n  Personality: {}\
                             \n}}\n",
                             name,
