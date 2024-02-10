@@ -358,7 +358,7 @@ impl Rule for NpcAi {
                         // =============== Amahla Code =================
                         println!(
                             "{{\
-                            \n  Body:        {}\
+                            \n  Npc's info:  {:?}\
                             \n  Personality: {}\
                             \n}}\n",
                             which_body(&npc.body),
