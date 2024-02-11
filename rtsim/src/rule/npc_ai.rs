@@ -360,31 +360,31 @@ impl Rule for NpcAi {
                         // Reset look_dir
                         controller.look_dir = None;
 
-                        // =============== Amahla Code =================
-                        let name = npc.get_name();
-                        let (species, body_type) = which_body_info(&npc.body);
-                        let personality = which_personality(&npc.personality);
-                        let current_site_name = which_site_name(&npc.current_site, &ctx);
-                        let home_site_name = which_site_name(&npc.home, &ctx);
+                        // =============== Integration Code =================
+                        // let name = npc.get_name();
+                        // let (species, body_type) = which_body_info(&npc.body);
+                        // let personality = which_personality(&npc.personality);
+                        // let current_site_name = which_site_name(&npc.current_site, &ctx);
+                        // let home_site_name = which_site_name(&npc.home, &ctx);
 
-                        println!(
-                            "Npc: {{\
-                            \n  Name:         {}\
-                            \n  Body:         {}\
-                            \n  Species:      {}\
-                            \n  Gender:       {}\
-                            \n  Personality:  {}\
-                            \n  Home Site:    {}\
-                            \n  Current Site: {}\
-                            \n}}\n",
-                            name,
-                            npc.body,
-                            species,
-                            body_type,
-                            personality,
-                            current_site_name,
-                            home_site_name
-                        );
+                        // println!(
+                        //     "Npc: {{\
+                        //     \n  Name:         {}\
+                        //     \n  Body:         {}\
+                        //     \n  Species:      {}\
+                        //     \n  Gender:       {}\
+                        //     \n  Personality:  {}\
+                        //     \n  Home Site:    {}\
+                        //     \n  Current Site: {}\
+                        //     \n}}\n",
+                        //     name,
+                        //     npc.body,
+                        //     species,
+                        //     body_type,
+                        //     personality,
+                        //     current_site_name,
+                        //     home_site_name
+                        // );
 
 
                         // =============================================
