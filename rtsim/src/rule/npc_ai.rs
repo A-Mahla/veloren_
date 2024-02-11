@@ -366,20 +366,6 @@ impl Rule for NpcAi {
                         let personality = which_personality(&npc.personality);
                         let current_site_name = which_site_name(&npc.current_site, &ctx);
                         let home_site_name = which_site_name(&npc.home, &ctx);
-                        //let site_name = if let Some(current_site) = npc.current_site {
-                        //    ctx.state.data().sites[current_site].world_site
-                        //    .map(|ws| ctx.index.sites.get(ws).name().to_string())
-                        //    .unwrap_or_default()
-                        //} else {
-                        //    "Unknown".to_string()
-                        //};
-                        //let home = if let Some(home) = npc.home {
-                        //    ctx.state.data().sites[home].world_site
-                        //    .map(|ws| ctx.index.sites.get(ws).name().to_string())
-                        //    .unwrap_or_default()
-                        //} else {
-                        //    "Unknown".to_string()
-                        //};
 
                         println!(
                             "Npc: {{\
