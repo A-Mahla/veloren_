@@ -239,6 +239,7 @@ use common::{
     rtsim::{PersonalityTrait, Personality},
     comp::body::{Body}
 };
+use crate::EventCtx;
 use regex::Regex;
 
 fn which_body_info(body: &Body) -> (String, String) {
@@ -248,9 +249,20 @@ fn which_body_info(body: &Body) -> (String, String) {
     if let Some(caps) = re.captures(&text) {
         let _species = (caps.get(1).map_or("None", |m| m.as_str())).to_string();
         let _body_type = (caps.get(2).map_or("None", |m| m.as_str())).to_string();
-        return (_species, _body_type);
+        (_species, _body_type)
+    } else {
+        ("Unknown".to_string(), "Unknown".to_string())
     }
-    ("None".to_string(), "None".to_string())
+}
+
+fn which_site_name(site: &Option<SiteId>, ctx: &EventCtx<'_, NpcAi, OnTick>) -> String {
+    if let Some(target_site) = site {
+        ctx.state.data().sites[*target_site].world_site
+        .map(|ws| ctx.index.sites.get(ws).name().to_string())
+        .unwrap_or_default()
+    } else {
+        "Unknown".to_string()
+    }
 }
 
 fn which_personality(personality: &Personality) -> &'static str {
@@ -352,21 +364,42 @@ impl Rule for NpcAi {
                         let name = npc.get_name();
                         let (species, body_type) = which_body_info(&npc.body);
                         let personality = which_personality(&npc.personality);
+                        let current_site_name = which_site_name(&npc.current_site, &ctx);
+                        let home_site_name = which_site_name(&npc.home, &ctx);
+                        //let site_name = if let Some(current_site) = npc.current_site {
+                        //    ctx.state.data().sites[current_site].world_site
+                        //    .map(|ws| ctx.index.sites.get(ws).name().to_string())
+                        //    .unwrap_or_default()
+                        //} else {
+                        //    "Unknown".to_string()
+                        //};
+                        //let home = if let Some(home) = npc.home {
+                        //    ctx.state.data().sites[home].world_site
+                        //    .map(|ws| ctx.index.sites.get(ws).name().to_string())
+                        //    .unwrap_or_default()
+                        //} else {
+                        //    "Unknown".to_string()
+                        //};
 
                         println!(
-                            "{{\
-                            \n  Name:        {}\
-                            \n  Body:        {}\
-                            \n  Species:     {}\
-                            \n  Gender:      {}\
-                            \n  Personality: {}\
+                            "Npc: {{\
+                            \n  Name:         {}\
+                            \n  Body:         {}\
+                            \n  Species:      {}\
+                            \n  Gender:       {}\
+                            \n  Personality:  {}\
+                            \n  Home Site:    {}\
+                            \n  Current Site: {}\
                             \n}}\n",
                             name,
                             npc.body,
                             species,
                             body_type,
                             personality,
+                            current_site_name,
+                            home_site_name
                         );
+
 
                         // =============================================
 
