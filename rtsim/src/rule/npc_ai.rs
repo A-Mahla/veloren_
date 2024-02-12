@@ -361,6 +361,7 @@ impl Rule for NpcAi {
                         controller.look_dir = None;
 
                         // =============== Integration Code =================
+
                         // let name = npc.get_name();
                         // let (species, body_type) = which_body_info(&npc.body);
                         // let personality = which_personality(&npc.personality);
@@ -385,7 +386,6 @@ impl Rule for NpcAi {
                         //     current_site_name,
                         //     home_site_name
                         // );
-
 
                         // =============================================
 

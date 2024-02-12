@@ -118,7 +118,9 @@ impl ServerEvent for NpcInteractEvent {
                 && let Some(agent) = agents.get_mut(npc_entity)
                 && agent.target.is_none()
             {
-                println!("NpcInteractEvent: {:?}", subject);
+                // ================ Integration Code ================
+                println!("Event: NpcInteractEvent");
+                // ==================================================
                 if let Some(interactor_uid) = uids.get(interactor) {
                     agent
                         .inbox
